@@ -1,0 +1,392 @@
+/* ==========================================================================
+   Bento grid - Frontend Mentor challenge
+   Mobile-first. The desktop bento layout lives in section 8 at the bottom.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Fonts
+   Self-hosted so the page works offline. Both files are variable fonts,
+   so one @font-face covers every weight (and the italic file covers italic).
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DMSans-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. Design tokens
+   Pulled straight from style-guide.md. Naming the colours once means a
+   palette tweak is a one-line change instead of a find-and-replace.
+   -------------------------------------------------------------------------- */
+:root {
+  --purple-100: hsl(254, 88%, 90%);
+  --purple-500: hsl(256, 67%, 59%);
+  --yellow-100: hsl(31, 66%, 93%);
+  --yellow-500: hsl(39, 100%, 71%);
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 7%);
+
+  --page-bg: hsl(0, 0%, 96%);
+  --muted: hsl(0, 0%, 45%);
+
+  --radius: 0.85rem;
+  --radius-sm: 0.6rem;
+  --gap: 2rem;
+  --card-pad: 1.5rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--page-bg);
+  color: var(--black);
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.125rem; /* 18px, from the style guide */
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* One visible focus style for every interactive thing on the page. */
+:focus-visible {
+  outline: 3px solid var(--purple-500);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Page shell
+   -------------------------------------------------------------------------- */
+.bento {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  max-width: 73.5rem;
+  margin-inline: auto;
+  padding: 2rem 1rem 1rem;
+}
+
+.bento__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+
+/* --------------------------------------------------------------------------
+   5. Card
+   -------------------------------------------------------------------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: var(--card-pad);
+  border-radius: var(--radius);
+  background-color: var(--white);
+}
+
+/* clamp() = "at least X, ideally Y, never more than Z".
+   This is how the headings stay readable at 320px without a pile of
+   media queries. 4.2vw is the fluid part. */
+.card__title {
+  font-size: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+}
+
+
+/* --------------------------------------------------------------------------
+   6. Individual cards (mobile styles)
+   -------------------------------------------------------------------------- */
+
+/* --- Hero ---------------------------------------------------------------- */
+.card--hero {
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding-block: 2.25rem;
+  background-color: var(--purple-500);
+  color: var(--white);
+  text-align: center;
+}
+
+.card--hero .card__title {
+  font-size: clamp(2rem, 8vw, 3.75rem);
+}
+
+/* Stars and caption sit close together, which is why they are grouped. */
+.card__proof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card__proof img {
+  width: 11rem;
+}
+
+/* --- Manage multiple accounts ------------------------------------------- */
+.card--accounts .card__img {
+  width: 100%;
+}
+
+/* --- Maintain a consistent posting schedule ----------------------------- */
+.card--maintain {
+  gap: 1.75rem;
+  padding-bottom: 0;      /* image sits flush against the bottom edge... */
+  overflow: hidden;       /* ...and gets clipped by the card, as in the design */
+  background-color: var(--yellow-500);
+}
+
+.card--maintain .card__img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+/* --- Schedule to social media ------------------------------------------- */
+.card--schedule {
+  gap: 1.25rem;
+  background-color: var(--purple-100);
+  text-align: center;
+}
+
+.card--schedule .card__img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Grow followers ----------------------------------------------------- */
+.card--growth {
+  gap: 1.5rem;
+  background-color: var(--purple-500);
+  color: var(--white);
+  text-align: center;
+}
+
+.card--growth .card__img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Faster audience growth --------------------------------------------- */
+.card--audience .card__title {
+  font-size: clamp(2.5rem, 10vw, 3.5rem);
+}
+
+.card__title-sub {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card--audience .card__img {
+  width: 100%;
+  max-width: 12rem;
+  margin-top: auto;       /* pushes the avatars to the bottom of the card */
+}
+
+/* --- Create and schedule content ---------------------------------------- */
+.card--create {
+  justify-content: space-between;
+  background-color: var(--yellow-100);
+}
+
+.card--create .card__img {
+  width: 100%;
+}
+
+/* --- Write your content using AI ---------------------------------------- */
+.card--write {
+  justify-content: space-between;
+  background-color: var(--yellow-500);
+}
+
+.card--write .card__img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Inline text accents ------------------------------------------------ */
+.accent-yellow {
+  color: var(--yellow-500);
+}
+
+.accent-purple {
+  color: var(--purple-500);
+}
+
+.italic {
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+.attribution {
+  padding: 1.5rem 1rem;
+  font-size: 0.6875rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. Desktop: the bento grid
+   --------------------------------------------------------------------------
+
+   Four columns, three content rows:
+
+        | col 1        | col 2      | col 3       | col 4       |
+   -----+--------------+------------+-------------+-------------+
+   row 1|              | hero  (spans cols 2-3)   | schedule    |
+   row 2| left column  +------------+-------------+ (spans      |
+        | (spans       | accounts   | maintain    |  rows 1-2)  |
+   row 3| rows 1-3)    | audience   | growth (spans cols 3-4)   |
+   -----+--------------+------------+-------------+-------------+
+
+   The left column is one grid item that spans all three rows, and its two
+   cards share the height with flex: 1 - an even split the design asks for
+   but a simple row span cannot express.
+   -------------------------------------------------------------------------- */
+@media (min-width: 60rem) {
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 3rem 1.5rem 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .card--hero {
+    padding-block: 2.75rem;
+  }
+
+  /* Left column */
+  .bento__left {
+    grid-column: 1;
+    grid-row: 1 / 4;
+  }
+
+  .bento__left > .card {
+    flex: 1;
+  }
+
+  /* Placement */
+  .card--hero {
+    grid-column: 2 / 4;
+    grid-row: 1;
+  }
+
+  .card--schedule {
+    grid-column: 4;
+    grid-row: 1 / 3;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .card--accounts {
+    grid-column: 2;
+    grid-row: 2;
+    overflow: hidden;       /* the account chips run off the right edge */
+  }
+
+  .card--accounts .card__img {
+    width: 145%;
+    max-width: none;
+  }
+
+  .card--maintain {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .card--maintain .card__img {
+    height: 5.5rem;
+  }
+
+  .card--audience {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .card--growth {
+    grid-column: 3 / 5;
+    grid-row: 3;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.75rem;
+    text-align: left;
+  }
+
+  /* min-width: 0 matters on BOTH flex items here. By default a flex item is
+     min-width: auto, which for an <img> means "never narrower than the
+     image's natural width" - it would then shove the heading out of the
+     card. 0 lets the pair actually share the row. */
+  .card--growth .card__img {
+    flex: 0 1 42%;
+    min-width: 0;
+  }
+
+  .card--growth .card__title {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .card--create .card__img {
+    max-width: 13rem;
+  }
+}
